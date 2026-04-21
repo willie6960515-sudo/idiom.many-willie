@@ -361,7 +361,7 @@
                     <span>🔴 星際指揮官 (地獄)</span> <span class="text-xs text-slate-500 mt-1">作答 5~8秒</span>
                 </button>
                 <button onclick="startPvPAI('abyss')" class="btn-press bg-slate-900 border-2 border-purple-500 text-purple-400 p-3 rounded-xl font-black flex justify-between shadow-[0_0_10px_purple]">
-                    <span>☠️ AI最終兵器 (深淵)</span> <span class="text-xs text-slate-500 mt-1">作答 3~5秒</span>
+                    <span>☠️ AI最終兵器 (深淵)</span> <span class="text-xs text-slate-500 mt-1">極限 3~5秒</span>
                 </button>
             </div>
             <button onclick="closePvPAIModal()" class="text-slate-400 underline">返回</button>
@@ -1825,8 +1825,16 @@
                 pvpPlayerCombo++; 
                 
                 let pStage = getPetStage(inventory.petsData[activePetId].level);
-                let pushAmt = 5; 
+                let pushAmt = 8; // 基礎推力提升至 8%
                 
+                // 連擊額外推力加成
+                if (pvpPlayerCombo >= 5) {
+                    pushAmt *= 1.5;
+                } else if (pvpPlayerCombo >= 3) {
+                    pushAmt *= 1.2;
+                }
+                
+                // 虛空系被動
                 if (activePetId === 6) {
                     if (pStage === 1) pushAmt *= 1.5;
                     else if (pStage === 2) pushAmt *= 2.0;
@@ -1837,7 +1845,7 @@
                     pvpPlayerBlackhole = false;
                     showPvPFloatText("被黑洞吸收!", "#a855f7");
                 } else {
-                    showPvPFloatText(`正確! +${pushAmt}%`, "#38bdf8");
+                    showPvPFloatText(`正確! +${parseFloat(pushAmt.toFixed(1))}%`, "#38bdf8");
                 }
 
                 pvpProgress = Math.min(100, pvpProgress + pushAmt);
@@ -1949,7 +1957,7 @@
                     let isCorrect = Math.random() < accRate;
                     if (isCorrect) {
                         pvpAiCombo++;
-                        let pushAmt = 5;
+                        let pushAmt = 3; // AI 反推力下調至 3%
                         if (pvpAiBlackhole) { pushAmt = 0; pvpAiBlackhole = false; showSkillEffect("p2", "分數被吸走!"); }
                         
                         let pStage = getPetStage(inventory.petsData[activePetId].level);
@@ -2017,8 +2025,11 @@
             let msg = isWin ? "競技勝利！" : "不幸戰敗！";
             let color = isWin ? "text-yellow-400" : "text-rose-400";
             
-            inventory.pkTotal++;
-            if (isWin) inventory.pkWins++;
+            // 只有非 AI 的真實玩家對戰，才計入 PK 勝率榜
+            if (pvpOpponentType !== 'ai') {
+                inventory.pkTotal++;
+                if (isWin) inventory.pkWins++;
+            }
             
             let timeUsed = 60 - pvpTimeLeft;
             if (isWin && pvpOpponentType === 'ai') {
