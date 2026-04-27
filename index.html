@@ -14,17 +14,15 @@
             background-color: #0f172a; 
             color: #e2e8f0;
             overscroll-behavior-y: none;
-            touch-action: none; /* 嚴格禁止手機瀏覽器下拉重整或滑動 */
+            touch-action: none; 
             user-select: none;
             overflow: hidden;
-            /* 適配所有裝置真實可視高度 */
             height: 100dvh;
             width: 100vw;
             display: flex;
             flex-direction: column;
         }
         
-        /* 螢幕主體自適應剩餘空間 */
         .screen { 
             display: none; 
             width: 100%; 
@@ -40,7 +38,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* 隕石動畫改為相對比例，適應任何螢幕高度 */
         @keyframes fall {
             0% { top: -20%; opacity: 0; }
             10% { opacity: 1; }
@@ -97,7 +94,6 @@
         
         select option { background-color: #1e293b; color: #fff; }
 
-        /* PvP 專用動畫 */
         @keyframes spinSlow { 100% { transform: rotate(360deg); } }
         .blackhole-anim { animation: spinSlow 3s linear infinite; }
         
@@ -448,7 +444,7 @@
     <main id="screen-meteor" class="screen flex-col items-center w-full flex-1 relative overflow-hidden bg-slate-900">
         <div class="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNmZmYiLz48L3N2Zz4=')]"></div>
         
-        <!-- Top HUD (Shrink-0) -->
+        <!-- Top HUD -->
         <div class="w-full flex justify-between items-start z-20 p-2 shrink-0 relative">
             <div class="flex gap-1 text-red-500 text-xl md:text-2xl" id="meteor-hp"></div>
             <div class="flex flex-col items-end gap-1">
@@ -461,7 +457,7 @@
             </div>
         </div>
         
-        <!-- 動態 Play Area (Flex-1) 隕石掉落空間自動撐滿剩餘區塊 -->
+        <!-- 動態 Play Area -->
         <div id="meteor-play-area" class="flex-1 w-full relative z-10 border-b border-cyan-900 overflow-hidden">
             <div id="meteor-container" class="absolute inset-0"></div>
             
@@ -471,7 +467,7 @@
             <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 md:w-40 h-2 md:h-4 bg-cyan-900 rounded-full border border-cyan-400 z-20 shadow-[0_0_10px_cyan]"></div>
         </div>
         
-        <!-- 底部面板 (Shrink-0) 保證題目顯示 -->
+        <!-- 底部面板 -->
         <div class="w-full sci-fi-panel z-40 flex flex-col items-center justify-center p-2 shrink-0 relative rounded-t-2xl max-w-2xl mx-auto">
             <button id="btn-wind-skill-meteor" onclick="useWindSkillMeteor()" class="hidden absolute -top-10 right-2 bg-emerald-600 border border-emerald-300 text-white px-2 py-1 rounded-full text-[10px] font-bold shadow-[0_0_10px_emerald]">🌪️ 吹散干擾 (1次)</button>
             <div class="text-cyan-400 text-[10px] md:text-sm mb-1 font-bold flex justify-between w-full px-2">
@@ -486,7 +482,6 @@
     <main id="screen-boss" class="screen flex-col items-center p-1 md:p-2 relative overflow-hidden bg-slate-950">
         <div class="w-full max-w-lg mx-auto flex flex-col h-full z-10 overflow-hidden">
             
-            <!-- 頂部資訊 (Shrink-0) -->
             <div class="flex justify-between w-full px-2 mb-1 shrink-0 pt-1">
                 <div class="text-orange-400 font-bold bg-slate-800/80 px-2 py-0.5 md:py-1 rounded border border-orange-500 text-xs md:text-sm shadow-[0_0_5px_orange]">
                     連擊: <span id="combo-counter" class="text-sm md:text-xl">0</span>
@@ -504,11 +499,11 @@
                 <div class="absolute inset-0 flex items-center justify-center text-[10px] md:text-xs font-bold text-white drop-shadow">HP: <span id="boss-hp-text">300</span></div>
             </div>
             
-            <!-- 中間動態戰鬥區 (Flex-1) 圖片自適應縮小 -->
+            <!-- 中間動態戰鬥區 -->
             <div class="relative flex-1 w-full flex flex-col justify-between items-center min-h-0 my-1 overflow-hidden">
                 <div id="dmg-float-text" class="absolute top-[10%] left-1/2 transform -translate-x-1/2 text-xl md:text-2xl font-black text-yellow-300 pointer-events-none opacity-0 z-50"></div>
                 
-                <!-- Boss Sprite (壓縮圖片高度) -->
+                <!-- Boss Sprite -->
                 <div id="boss-sprite" class="w-full flex-1 flex items-center justify-center min-h-0 filter drop-shadow-[0_10px_10px_rgba(220,38,38,0.5)] transition-transform p-2"></div>
                 
                 <!-- 玩家幻獸 -->
@@ -521,7 +516,7 @@
                 </div>
             </div>
 
-            <!-- 底部題目與選項 (Shrink-0 固定保留空間) -->
+            <!-- 底部題目與選項 -->
             <div class="sci-fi-panel rounded-xl p-2 border-red-500/50 relative shrink-0">
                 <button id="btn-wind-skill-boss" onclick="useWindSkillBoss()" class="hidden absolute -top-8 right-2 bg-emerald-600 border border-emerald-300 text-white px-2 py-1 rounded-full text-[10px] font-bold shadow-[0_0_10px_emerald]">🌪️ 刪除錯誤</button>
                 <div class="w-full h-1.5 md:h-2 bg-slate-800 rounded-full mb-1 overflow-hidden">
@@ -579,7 +574,7 @@
                 <div id="pvp-float-text" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl md:text-2xl font-black pointer-events-none opacity-0 z-50"></div>
             </div>
 
-            <!-- 底部題目與四個選項區 (高度固定不被擠壓) -->
+            <!-- 底部題目與四個選項區 -->
             <div id="pvp-control-panel" class="sci-fi-panel rounded-xl p-2 border-indigo-500/50 relative shrink-0 transition-all">
                 <div class="text-[10px] text-indigo-400 mb-1 font-bold text-right w-full" id="pvp-lesson-badge"></div>
                 <div id="pvp-question" class="text-white text-xs md:text-base font-bold mb-2 min-h-[2.5rem] md:min-h-[3rem] leading-snug break-words flex items-center justify-center text-center"></div>
@@ -594,7 +589,6 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-        // Firebase 設置 (保持原本的設定)
         const firebaseConfig = {
           apiKey: "AIzaSyAMW-wgbe586brt9KNZEGeW_BExISBNFTo",
           authDomain: "starpetedu.firebaseapp.com",
@@ -617,7 +611,6 @@
         };
         let allUsersData = [];
 
-        // 避免重複導向的計時器
         let pvpEndTimeout, bossEndTimeout, meteorEndTimeout;
 
         function getPetStage(level) {
@@ -649,7 +642,7 @@
                 let data = docSnap.data();
                 inventory = { ...inventory, ...data };
                 
-                // 強制檢查與補齊所有缺失的防呆欄位 (防止舊玩家白畫面)
+                // 強制防呆修復
                 if(!inventory.petsData) inventory.petsData = {};
                 if(inventory.unlockedPets) {
                     inventory.unlockedPets.forEach(pid => {
@@ -738,7 +731,7 @@
             if (!currentUser) return;
             updateHUD();
 
-            // 強制將目前成績直接覆寫到本機的排行榜陣列，確保無延遲！
+            // Optimistic UI Update
             let myIdx = allUsersData.findIndex(u => u.id === currentUser.uid);
             if (myIdx > -1) {
                 allUsersData[myIdx] = { ...allUsersData[myIdx], ...inventory };
@@ -750,6 +743,10 @@
             updateDoc(userRef, inventory).catch(e => {
                 setDoc(userRef, inventory).catch(err => console.error("同步失敗", err));
             });
+
+            if(document.getElementById('screen-leaderboard').classList.contains('active')) {
+                window.renderLeaderboard();
+            }
         }
 
         window.doLogout = () => signOut(auth);
@@ -815,7 +812,7 @@
             if (sessionPool.length === 0) {
                 sessionPool = [...window.currentQuestionPool].sort(() => Math.random() - 0.5);
             }
-            if (sessionPool.length === 0) return { idiom: "無資料", meaning: "無資料", sentence: "＿＿＿＿", lesson: "無" }; // 防呆
+            if (sessionPool.length === 0) return { idiom: "無資料", meaning: "無資料", sentence: "＿＿＿＿", lesson: "無" }; 
             
             let idiomObj = sessionPool.pop();
             
@@ -842,13 +839,6 @@
         }
 
         /* ================= 戰損分析與晶片庫 ================= */
-        window.recordMistake = (idiomStr) => {
-            if (!window.mistakesList.includes(idiomStr)) {
-                window.mistakesList.push(idiomStr);
-                localStorage.setItem('idiom_mistakes_v12', JSON.stringify(window.mistakesList));
-            }
-        };
-
         window.showMistakesScreen = () => {
             showScreen('mistakes');
             const listEl = document.getElementById('mistake-list');
@@ -870,6 +860,13 @@
                 `;
                 listEl.appendChild(div);
             });
+        };
+
+        window.recordMistake = (idiomStr) => {
+            if (!window.mistakesList.includes(idiomStr)) {
+                window.mistakesList.push(idiomStr);
+                localStorage.setItem('idiom_mistakes_v12', JSON.stringify(window.mistakesList));
+            }
         };
 
         window.removeMistake = (idiomStr) => {
@@ -959,6 +956,11 @@
             document.getElementById('modal-confirm').classList.remove('flex');
         };
 
+        document.getElementById('btn-confirm-action').onclick = () => {
+            window.closeConfirmModal();
+            if(confirmActionCallback) confirmActionCallback();
+        };
+
         window.resetDefaultIdioms = () => {
             window.openConfirmModal("確定要重置題庫嗎？自訂的晶片將會被永久刪除！", () => {
                 window.idiomData = [...defaultIdioms];
@@ -966,12 +968,6 @@
                 window.renderIdiomList(); 
                 showToast("系統重置完畢", "#10b981");
             });
-        };
-
-        // 綁定確認按鈕邏輯
-        document.getElementById('btn-confirm-action').onclick = () => {
-            window.closeConfirmModal();
-            if(confirmActionCallback) confirmActionCallback();
         };
 
         /* ================= 戰前準備 (PVE) ================= */
@@ -1430,6 +1426,7 @@
             document.getElementById('modal-pvp-mode').classList.add('flex');
         };
 
+        let pvpMatchTimeLeft = 60;
         window.startPvPMatchmaking = () => {
             document.getElementById('modal-pvp-mode').classList.add('hidden');
             document.getElementById('modal-pvp-mode').classList.remove('flex');
@@ -1755,7 +1752,7 @@
                     let isCorrect = Math.random() < accRate;
                     if (isCorrect) {
                         pvpAiCombo++;
-                        let pushAmt = 3; // AI 反推力 3%
+                        let pushAmt = 3; 
                         if (pvpAiBlackhole) { pushAmt = 0; pvpAiBlackhole = false; showSkillEffect("p2", "分數被吸走!"); }
                         
                         let petData = inventory.petsData[activePetId] || { level: 1, exp: 0 };
@@ -2052,7 +2049,7 @@
             const usersRef = collection(db, 'users');
             onSnapshot(usersRef, (snapshot) => {
                 allUsersData = []; snapshot.forEach(doc => { allUsersData.push({ id: doc.id, ...doc.data() }); });
-                if(document.getElementById('screen-leaderboard').classList.contains('active')) renderLeaderboard();
+                if(document.getElementById('screen-leaderboard').classList.contains('active')) window.renderLeaderboard();
             }, (error) => console.error("讀取榜單失敗", error));
         }
 
@@ -2083,7 +2080,7 @@
         window.showLeaderboard = () => { 
             showScreen('leaderboard'); 
             initBossSelect();
-            renderLeaderboard(); 
+            window.renderLeaderboard(); 
         };
 
         window.goToBossLeaderboard = (bossId) => {
@@ -2093,7 +2090,7 @@
             document.getElementById('boss-leaderboard-filter').classList.remove('hidden');
             document.getElementById('leaderboard-boss-select').value = bossId;
             showScreen('leaderboard');
-            renderLeaderboard();
+            window.renderLeaderboard();
         };
 
         window.goToDefenseLeaderboard = () => {
@@ -2101,7 +2098,7 @@
             updateTabUI();
             document.getElementById('boss-leaderboard-filter').classList.add('hidden');
             showScreen('leaderboard');
-            renderLeaderboard();
+            window.renderLeaderboard();
         };
         
         window.goToAILeaderboard = (diff) => {
@@ -2111,7 +2108,7 @@
             document.getElementById('boss-leaderboard-filter').classList.remove('hidden');
             document.getElementById('leaderboard-boss-select').value = diff;
             showScreen('leaderboard');
-            renderLeaderboard();
+            window.renderLeaderboard();
         };
 
         window.switchBoard = (board) => {
@@ -2125,7 +2122,7 @@
                 document.getElementById('boss-leaderboard-filter').classList.add('hidden');
             }
             
-            renderLeaderboard();
+            window.renderLeaderboard();
         };
 
         window.renderLeaderboard = function() {
@@ -2145,7 +2142,7 @@
                 hasPlayed = true;
             } else if (currentBoard === 'speed') {
                 const selectedBossId = document.getElementById('leaderboard-boss-select').value;
-                if (!selectedBossId) return; // 避免初始尚未載入時出錯
+                if (!selectedBossId) return; 
                 sortedData = sortedData.map(u => {
                     let bossTime = (u.bossRecords && u.bossRecords[selectedBossId]) ? u.bossRecords[selectedBossId] : 999;
                     return { ...u, currentBossTime: bossTime };
