@@ -588,7 +588,114 @@
         </div>
     </main>
 
-    <!-- ================= 遊戲腳本邏輯 ================= -->
+    <!-- ================= 幻獸培育室 ================= -->
+    <main id="screen-pet" class="screen flex-col items-center p-4 relative overflow-y-auto bg-slate-900">
+        <h2 class="text-2xl font-black text-emerald-400 mb-4 mt-2 shrink-0"><i class="fas fa-paw"></i> 幻獸培育室</h2>
+        <div class="w-full max-w-md sci-fi-panel rounded-3xl p-6 flex flex-col items-center border-emerald-500/50 mb-6 shrink-0">
+            <div class="relative w-full flex justify-between items-center mb-4 px-2">
+                <button onclick="prevPet()" class="btn-press text-slate-400 hover:text-emerald-400 text-3xl z-10"><i class="fas fa-chevron-left"></i></button>
+                <div class="w-32 h-32 md:w-40 md:h-40 bg-slate-800/80 rounded-full border-4 border-slate-600 flex items-center justify-center relative shadow-[0_0_30px_rgba(16,185,129,0.2)] inset">
+                    <div id="pet-sprite" class="w-full h-full flex items-center justify-center animate-bounce p-2"></div>
+                    <div id="pet-level-badge" class="absolute -bottom-2 bg-emerald-600 text-white font-bold px-3 py-1 rounded-full border-2 border-emerald-300 text-[10px] md:text-sm z-10 whitespace-nowrap">Lv. 1</div>
+                </div>
+                <button onclick="nextPet()" class="btn-press text-slate-400 hover:text-emerald-400 text-3xl z-10"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <h3 id="pet-name" class="text-2xl font-bold text-white mb-1">未解鎖</h3>
+            <p id="pet-desc" class="text-slate-400 text-xs md:text-sm mb-2 text-center min-h-[40px]">...</p>
+            
+            <div id="pet-stone-req" class="text-purple-400 font-bold text-xs md:text-sm text-center mb-2 hidden"></div>
+
+            <div class="w-full mb-4">
+                <div class="flex justify-between text-[10px] md:text-xs font-bold text-emerald-300 mb-1">
+                    <span>EXP</span><span id="pet-exp-text">0 / 1</span>
+                </div>
+                <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden border border-slate-600">
+                    <div id="pet-exp-bar" class="h-full bg-gradient-to-r from-emerald-500 to-green-400 transition-all duration-300" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 w-full">
+                <button onclick="feedPet()" class="btn-press bg-red-900/60 border-2 border-red-500 text-red-100 font-bold py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1">
+                    <i class="fas fa-drumstick-bite text-lg md:text-xl"></i><span class="text-xs md:text-sm">餵食 1 塊</span>
+                </button>
+                <button onclick="feedPetMax()" class="btn-press bg-orange-900/60 border-2 border-orange-500 text-orange-100 font-bold py-2 md:py-3 rounded-xl flex flex-col items-center justify-center gap-1">
+                    <i class="fas fa-forward text-lg md:text-xl"></i><span class="text-xs md:text-sm">一鍵升級</span>
+                </button>
+            </div>
+        </div>
+        <button onclick="goHome()" class="btn-press w-full max-w-md bg-slate-800 text-white font-bold py-3 rounded-xl border border-slate-600 shrink-0">返回基地</button>
+    </main>
+
+    <!-- ================= 星空召喚陣 (抽卡) ================= -->
+    <main id="screen-gacha" class="screen flex-col items-center justify-center p-4 relative overflow-y-auto bg-slate-900">
+        <h2 class="text-3xl font-black text-pink-300 mb-8 tracking-widest drop-shadow-[0_0_10px_purple]"><i class="fas fa-dharmachakra"></i> 星空召喚</h2>
+        <div id="gacha-circle" class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-dashed border-purple-500/50 flex items-center justify-center relative mb-10 shrink-0">
+            <div class="absolute inset-0 rounded-full border-4 border-pink-500/30 animate-[spin_10s_linear_infinite]"></div>
+            <i class="fas fa-star-of-david text-5xl md:text-6xl text-purple-600 opacity-50"></i>
+            <div id="gacha-result" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 rounded-full z-20 scale-0 transition-transform duration-500">
+                <div id="gacha-result-icon" class="mb-2 flex items-center justify-center w-16 h-16 md:w-20 md:h-20"></div>
+                <div id="gacha-result-text" class="text-white font-bold text-center text-sm md:text-base px-2">獲得...</div>
+            </div>
+        </div>
+        <div class="text-yellow-400 font-bold mb-4 bg-slate-800 px-4 py-2 rounded-full border border-yellow-500/50 text-sm md:text-base shrink-0">
+            持有星塵幣: <span id="gacha-stardust-display">0</span>
+        </div>
+        <button onclick="drawGacha()" class="btn-press w-full max-w-xs bg-gradient-to-r from-purple-600 to-pink-600 text-white text-lg md:text-xl font-bold py-3 md:py-4 rounded-full shadow-[0_0_20px_rgba(219,39,119,0.5)] border-b-4 border-purple-800 mb-6 shrink-0">
+            啟動召喚 (消耗 100 星塵)
+        </button>
+        <button onclick="goHome()" class="text-slate-400 font-bold underline shrink-0">返回基地</button>
+    </main>
+
+    <!-- ================= 全班榮譽榜 ================= -->
+    <main id="screen-leaderboard" class="screen flex-col items-center p-4 relative overflow-y-auto bg-slate-900">
+        <h2 class="text-2xl font-black text-purple-400 mb-4 mt-2 shrink-0"><i class="fas fa-trophy"></i> 雲端榮譽榜</h2>
+        <div class="flex gap-2 mb-4 w-full max-w-md overflow-x-auto pb-2 shrink-0 snap-x">
+            <button onclick="switchBoard('wealth')" id="tab-wealth" class="px-4 py-2 bg-purple-700 text-white rounded-full text-xs md:text-sm font-bold shrink-0 shadow-[0_0_10px_purple] snap-center">宇宙富豪榜</button>
+            <button onclick="switchBoard('speed')" id="tab-speed" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-full text-xs md:text-sm font-bold border border-slate-600 shrink-0 snap-center">弒神英雄榜</button>
+            <button onclick="switchBoard('defense')" id="tab-defense" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-full text-xs md:text-sm font-bold border border-slate-600 shrink-0 snap-center">最強防禦榜</button>
+            <button onclick="switchBoard('scholar')" id="tab-scholar" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-full text-xs md:text-sm font-bold border border-slate-600 shrink-0 snap-center">學霸榮譽榜</button>
+            <button onclick="switchBoard('pkwin')" id="tab-pkwin" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-full text-xs md:text-sm font-bold border border-slate-600 shrink-0 snap-center">PK勝率榜</button>
+            <button onclick="switchBoard('aispeed')" id="tab-aispeed" class="px-4 py-2 bg-slate-800 text-slate-400 rounded-full text-xs md:text-sm font-bold border border-slate-600 shrink-0 snap-center">AI速通榜</button>
+        </div>
+        <div id="boss-leaderboard-filter" class="w-full max-w-md mb-2 hidden relative shrink-0">
+            <select id="leaderboard-boss-select" onchange="renderLeaderboard()" class="w-full bg-slate-800 text-cyan-300 py-2 px-4 rounded-xl border border-slate-600 focus:border-cyan-400 outline-none font-bold text-center appearance-none cursor-pointer text-sm">
+            </select>
+            <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-cyan-500 pointer-events-none"></i>
+        </div>
+        <div class="w-full max-w-md sci-fi-panel rounded-xl p-2 flex-1 overflow-y-auto relative border-purple-500/50">
+            <div id="leaderboard-list" class="flex flex-col gap-2">
+                <div class="text-center text-slate-400 mt-10"><i class="fas fa-spinner fa-spin text-3xl mb-2"></i><br>讀取星際數據中...</div>
+            </div>
+        </div>
+        <button onclick="goHome()" class="mt-4 w-full max-w-md btn-press bg-slate-700 text-white font-bold py-3 rounded-xl shrink-0">返回基地</button>
+    </main>
+
+    <!-- ================= 錯題本與晶片庫 ================= -->
+    <main id="screen-mistakes" class="screen flex-col items-center p-4 relative overflow-y-auto bg-slate-900">
+        <h2 class="text-2xl font-black text-rose-400 mb-2 mt-2 shrink-0"><i class="fas fa-book-dead"></i> 戰損紀錄分析</h2>
+        <div id="mistake-list" class="w-full max-w-md flex flex-col gap-3 mb-6 flex-1 overflow-y-auto"></div>
+        <button onclick="goHome()" class="w-full max-w-md btn-press bg-slate-700 text-white font-bold py-3 rounded-xl shrink-0">返回基地</button>
+    </main>
+    <main id="screen-manage" class="screen flex-col items-center p-4 relative overflow-y-auto bg-slate-900">
+        <h2 class="text-xl md:text-2xl font-black text-cyan-400 mb-4 mt-2 shrink-0"><i class="fas fa-database"></i> 學習晶片庫 (最高權限)</h2>
+        <div class="w-full max-w-md sci-fi-panel p-3 md:p-4 rounded-xl mb-4 shrink-0">
+            <input id="input-idiom" type="text" placeholder="成語" class="w-full mb-2 p-2 bg-slate-800 text-white rounded border border-slate-600 text-sm">
+            <input id="input-meaning" type="text" placeholder="解釋" class="w-full mb-2 p-2 bg-slate-800 text-white rounded border border-slate-600 text-sm">
+            <textarea id="input-sentence" rows="2" placeholder="例句 (請包含＿＿＿＿)" class="w-full mb-2 p-2 bg-slate-800 text-white rounded border border-slate-600 text-sm"></textarea>
+            <button onclick="addNewIdiom()" class="w-full btn-press bg-cyan-700 text-white font-bold py-2 rounded text-sm">寫入晶片</button>
+        </div>
+        <div class="w-full max-w-md flex-1 sci-fi-panel rounded-xl flex flex-col overflow-hidden min-h-[150px]">
+            <div class="bg-slate-800 p-2 font-bold text-cyan-300 flex justify-between shrink-0">
+                <span class="text-sm">總量: <span id="total-idioms-count">0</span></span>
+                <button onclick="resetDefaultIdioms()" class="text-xs bg-red-900/50 text-red-300 px-2 rounded hover:bg-red-500 hover:text-white transition">重置系統</button>
+            </div>
+            <div id="all-idioms-list" class="flex-1 overflow-y-auto p-2"></div>
+        </div>
+        <button onclick="goHome()" class="mt-4 w-full max-w-md btn-press bg-slate-700 text-white font-bold py-3 rounded-xl shrink-0">安全登出並返回基地</button>
+    </main>
+
+    <!-- ================= 遊戲核心腳本 ================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
@@ -624,6 +731,136 @@
             return 0;
         }
 
+        /* ================= 題庫數據 ================= */
+        const defaultIdioms = [
+            { idiom: "家喻戶曉", meaning: "家家戶戶都知曉，形容事情、名聲傳播極廣。", lesson: "L7", sentences: ["她是＿＿＿＿的大明星，因此一舉一動都格外引人注目。","《西遊記》的故事在華人世界裡幾乎＿＿＿＿，老少皆知。","這家老字號的包子店在當地＿＿＿＿，每天都大排長龍。","經過新聞的大肆報導，這件奇聞異事早已＿＿＿＿了。","這首流行歌曲的旋律非常洗腦，沒多久就＿＿＿＿了。"]},
+            { idiom: "觸類旁通", meaning: "表示對已知事物的認識與理解，進而通達對其他類似事物的認知。", lesson: "L7", sentences: ["他才思敏捷，往往能舉一反三，＿＿＿＿。","學習數學只要掌握核心觀念，就能＿＿＿＿，解開各種題型。","老師希望我們不要死背書，而是要學會＿＿＿＿，靈活運用知識。","有了鋼琴的基礎，他學起其他鍵盤樂器便能＿＿＿＿，進步神速。","廣泛閱讀課外讀物可以幫助我們＿＿＿＿，提升對各種知識的理解力。"]},
+            { idiom: "一蹶不振", meaning: "比喻一遭受挫敗，就再也不能振作起來。", lesson: "L7", sentences: ["我們要有愈挫愈勇的精神，千萬不可＿＿＿＿。","那次投資失敗後，他便＿＿＿＿，整天意志消沉。","經歷了這場大病，原本活潑開朗的她似乎＿＿＿＿了。","面對比賽的落敗，教練鼓勵大家吸取教訓，不要因此＿＿＿＿。","這家公司在金融風暴中遭受重創，從此＿＿＿＿，最終宣告破產。"]},
+            { idiom: "易如反掌", meaning: "比喻事情非常容易做到。", lesson: "L7", sentences: ["對大胃王而言，吃五碗飯，簡直是＿＿＿＿。","這道數學題對班長來說＿＿＿＿，他不到一分鐘就解出來了。","只要平時準備充分，想要通過這次的檢定考試絕對＿＿＿＿。","以他的實力，要在這場百米賽跑中奪冠，簡直是＿＿＿＿。","現代科技發達，想在網路上搜尋國外的資料可說是＿＿＿＿。"]},
+            { idiom: "樂不可支", meaning: "形容快樂到了極點。", lesson: "L7", sentences: ["老師宣布今天小考取消，全班同學都＿＿＿＿！","聽到自己中了頭獎的消息，他高興得＿＿＿＿。","孩子們收到期待已久的聖誕禮物，個個都＿＿＿＿。","看到心愛的偶像向自己揮手，小粉絲激動得＿＿＿＿。","終於熬到了暑假，大家拋開沉重的書包，＿＿＿＿地計畫著出遊。"]},
+            { idiom: "旗開得勝", meaning: "比喻事情才一開始就獲得成功。", lesson: "L7", sentences: ["我隊＿＿＿＿，觀眾們都紛紛起立為球員鼓掌。","校長在運動會開幕時，預祝各班的選手都能＿＿＿＿。","憑藉著完美的團隊默契，我們在首場比賽就＿＿＿＿。","這次出國比賽，希望能＿＿＿＿，為國爭光。","只要大家齊心協力，我們一定能在這次的專案中＿＿＿＿。"]},
+            { idiom: "不得要領", meaning: "指無法掌握事情的要點或主旨。", lesson: "L8", sentences: ["這篇論文的邏輯混亂，使人讀後＿＿＿＿。","他解釋了半天，大家還是聽得＿＿＿＿，完全不知道重點在哪。","因為缺乏經驗，他處理這件事顯得＿＿＿＿，頻頻出錯。","這本說明書寫得太過艱澀，讓新手看了＿＿＿＿。","如果沒有正確的方法，盲目練習只會讓人＿＿＿＿，事倍功半。"]},
+            { idiom: "每下愈況", meaning: "比喻情況愈來愈壞。", lesson: "L8", sentences: ["這家公司的營運狀況，已經＿＿＿＿。","由於長期熬夜，他的身體健康＿＿＿＿，經常生病。","因為缺乏維護，這座古蹟的損壞程度＿＿＿＿。","他的成績＿＿＿＿，讓父母感到非常擔憂。","這條河川的汙染問題＿＿＿＿，必須立刻採取改善措施。"]},
+            { idiom: "怒髮衝冠", meaning: "形容盛怒的樣子。", lesson: "L8", sentences: ["他遭受到如此誣賴，難怪會＿＿＿＿，大聲辯解。","看到歹徒欺負弱小，他氣得＿＿＿＿，立刻上前制止。","得知自己辛苦完成的作品被抄襲，她當場＿＿＿＿。","岳飛＿＿＿＿，寫下了流傳千古的〈滿江紅〉。","面對敵人的惡意挑釁，將軍＿＿＿＿地發動了攻擊。"]},
+            { idiom: "過猶不及", meaning: "做事過分就跟做得不夠一樣，都是不好的。比喻做事要恰到好處。", lesson: "L8", sentences: ["待人處事要圓融，講求中庸之道，＿＿＿＿對於事情都毫無幫助。","運動雖然有益健康，但＿＿＿＿，過度運動反而會造成運動傷害。","管教孩子必須拿捏分寸，嚴厲或溺愛都是＿＿＿＿。","煮這道菜時，調味料放太多或太少都不好，這正是＿＿＿＿的道理。","在追求完美的過程中，我們也要懂得適可而止，因為＿＿＿＿。"]},
+            { idiom: "肝膽相照", meaning: "比喻朋友之間赤誠相處，真心相待。", lesson: "L8", sentences: ["他們是幾十年的老戰友了，＿＿＿＿，生死與共。","真正的朋友應該＿＿＿＿，在困難時互相扶持。","這兩位義氣相挺的兄弟，始終＿＿＿＿，從未背棄過對方。","在職場上能遇到＿＿＿＿的好同事，是非常幸運的事。","為了共同的理想，這群年輕人＿＿＿＿，決定一起創業。"]},
+            { idiom: "軟硬兼施", meaning: "委婉和強硬的手段一齊用上。", lesson: "L8", sentences: ["這次會議我方代表＿＿＿＿，終於使對方讓步而達成協議。","面對這個固執的客戶，業務員＿＿＿＿，總算說服了他。","媽媽對不愛吃蔬菜的弟弟＿＿＿＿，最後他只好乖乖吃下去。","警方＿＿＿＿，終於突破了犯人的心防，讓他供出實情。","為了讓他戒除壞習慣，家人＿＿＿＿，用盡了各種方法。"]},
+            { idiom: "盛氣凌人", meaning: "指用傲慢的氣勢壓迫別人。", lesson: "L9", sentences: ["我看他是得理不饒人，才會如此＿＿＿＿的責罵對方。","那位經理平時總是＿＿＿＿，因此部門內的員工都不太喜歡他。","雖然他家境富裕，但待人親切，從不曾有＿＿＿＿的態度。","辯論會上，反方代表＿＿＿＿，試圖在氣勢上壓倒對手。","別看他現在＿＿＿＿，遇到真正的高手時，他就不敢吭聲了。"]},
+            { idiom: "雀屏中選", meaning: "比喻在眾多競爭者中被選上。", lesson: "L9", sentences: ["為了科展，同學們不眠不休，參加的作品終於＿＿＿＿，得到第一名。","在眾多面試者中，她憑藉著流利的外語能力＿＿＿＿。","這部電影的劇本非常出色，難怪能在眾多參賽作品中＿＿＿＿。","經過層層選拔，他終於＿＿＿＿，成為這次活動的代言人。","他的設計理念新穎獨特，最後果然＿＿＿＿，被公司採用。"]},
+            { idiom: "老馬識途", meaning: "比喻有經驗的人對情況比較熟悉，容易把工作做好。", lesson: "L9", sentences: ["他為大家找到正確的路，真不愧是＿＿＿＿。","在登山迷路時，多虧了這位＿＿＿＿的嚮導，我們才得以安全下山。","處理這種棘手的客訴案件，還是交給＿＿＿＿的資深前輩比較妥當。","憑著＿＿＿＿的經驗，老船長成功帶領大家避開了可怕的暗礁。","他在這個行業打滾多年，有如＿＿＿＿，總能迅速解決問題。"]},
+            { idiom: "熟能生巧", meaning: "熟練了自然能領悟出竅門。", lesson: "L9", sentences: ["所謂「＿＿＿＿」，只要你肯勤加練習，對於這部機器就能操作自如了。","一開始學騎腳踏車總是會摔倒，但只要多練習，自然就會＿＿＿＿。","包水餃看似簡單，其實需要長時間的練習才能＿＿＿＿，包得漂亮。","他精湛的刀工並非天生，而是每天在廚房苦練，＿＿＿＿的結果。","學外語沒有捷徑，多聽多說多讀多寫，久而久之自然＿＿＿＿。"]},
+            { idiom: "力透紙背", meaning: "形容人的書法遒勁有力，或文章深刻。", lesson: "L9", sentences: ["老先生的題字筆力蒼勁，真可謂＿＿＿＿。","這篇文章批判社會現象深刻入微，字字句句皆＿＿＿＿。","這位書法大師的作品＿＿＿＿，展現出深厚的功力。","讀了他那篇＿＿＿＿的評論，讓大家對這件事有了全新的看法。","他不僅寫得一手好字，＿＿＿＿，文學造詣也非常高。"]},
+            { idiom: "捕風捉影", meaning: "比喻所做的事或說的話毫無根據，憑空揣測。", lesson: "L9", sentences: ["那些傳聞只不過是＿＿＿＿，不必理會。","媒體報導應該講求證據，不能靠著＿＿＿＿就亂寫一通。","他生性多疑，經常對同事的無心之言＿＿＿＿，造成很多誤會。","法官辦案講究證據確鑿，絕不允許任何＿＿＿＿的推論。","對於網路上＿＿＿＿的假消息，我們應該保持理智，不要輕易相信。"]},
+            { idiom: "氣焰熏天", meaning: "形容人的氣勢極其囂張，傲慢逼人。", lesson: "L10", sentences: ["他總是＿＿＿＿，相當強勢，使朋友一個一個離他而去。","那個惡霸在村裡＿＿＿＿，欺壓百姓，大家對他敢怒不敢言。","敵軍雖然看似＿＿＿＿，但其實內部早已軍心渙散。","仗著有大老闆撐腰，那位主管在公司裡簡直是＿＿＿＿。","昔日＿＿＿＿的龐大帝國，最終也難逃走向衰亡的命運。"]},
+            { idiom: "獨當一面", meaning: "獨力擔當某一方面的重任。", lesson: "L10", sentences: ["經過多年的磨練，他已經可以＿＿＿＿了。","老闆很賞識他的才華，決定派他去新分公司＿＿＿＿。","在現代社會，培養孩子＿＿＿＿的能力是非常重要的。","她雖然年紀輕輕，但做事穩重，已經是能＿＿＿＿的專案經理了。","這支球隊的每個球員都具備了＿＿＿＿的實力，難怪會拿下冠軍。"]},
+            { idiom: "菩薩心腸", meaning: "比喻慈悲之心。", lesson: "L10", sentences: ["他不計較以前的衝突，以德報怨，實在是＿＿＿＿。","那位老奶奶常常煮熱湯給街友吃，真是一副＿＿＿＿。","醫生看到病患痛苦的樣子，不禁動了＿＿＿＿，決定免費為他治療。","即使流浪狗咬傷了他，他還是滿懷＿＿＿＿地將牠送去獸醫院。","志工們帶著＿＿＿＿，默默地在偏鄉為弱勢孩童課輔。"]},
+            { idiom: "漠不關心", meaning: "形容對人或事物冷淡，一點也不關心。", lesson: "L10", sentences: ["對民生需求，有為的執政者不能＿＿＿＿。","他整天只顧著打電動，對家裡發生的大小事都＿＿＿＿。","我們生存在同一個地球上，對於環保議題絕對不能＿＿＿＿。","面對同學被霸凌，我們不該袖手旁觀、＿＿＿＿。","他看起來對什麼事都＿＿＿＿，其實內心非常敏感脆弱。"]},
+            { idiom: "有容乃大", meaning: "有度量，能寬容，才能夠成就大業。", lesson: "L10", sentences: ["凡事＿＿＿＿，不要再斤斤計較了。","「海納百川，＿＿＿＿」，這句名言勉勵我們要具備寬闊的胸襟。","真正的領導者懂得接納不同的意見，因為他們明白＿＿＿＿的道理。","面對別人的批評，他總是虛心接受，展現出＿＿＿＿的風度。","多元文化的融合讓這座城市更加繁榮，這正是＿＿＿＿的最佳寫照。"]},
+            { idiom: "吳下阿蒙", meaning: "原指三國名將呂蒙。後用來比喻學識淺陋、沒有進步的人。", lesson: "L11", sentences: ["他如今已是世界聞名的音樂家，不是昔日的＿＿＿＿。","經過這幾年的出國深造，他的專業能力早已非＿＿＿＿可比。","士別三日，即更刮目相待，你可不能再把他當成＿＿＿＿了。","只要肯努力學習，沒有人會永遠是＿＿＿＿。","他發憤圖強，博覽群書，終於擺脫了＿＿＿＿的稱號。"]},
+            { idiom: "骨瘦如柴", meaning: "形容人非常消瘦，像木柴一樣。", lesson: "L11", sentences: ["這場大病把叔叔折磨得＿＿＿＿，令人心痛。","那些難民因為長期飢荒，個個都＿＿＿＿，看了真不忍心。","她為了追求極致的苗條而過度節食，結果變得＿＿＿＿，反而失去了健康。","收容所裡的流浪貓剛被發現時＿＿＿＿，經過照顧現在已經圓潤許多。","長期的勞累與營養不良，讓這位母親的身影顯得＿＿＿＿。"]},
+            { idiom: "趨炎附勢", meaning: "指奉承依附有權勢的人。", lesson: "L11", sentences: ["＿＿＿＿或許能換得名與利，但也可能失去情誼。","他生性清高，最看不慣那些在長官面前＿＿＿＿的小人。","歷史上許多＿＿＿＿之徒，在靠山倒臺後，下場通常都很淒慘。","那個人總是＿＿＿＿，看到有錢人就巴結，看到窮人就擺臉色。","我們應該結交正直的朋友，而不是那些＿＿＿＿、見風轉舵的人。"]},
+            { idiom: "居安思危", meaning: "處於安樂時，要想到危險可能隨時會出現。", lesson: "L11", sentences: ["平時就應＿＿＿＿，及早做好防災準備。","雖然目前公司業績很好，但老闆總是提醒大家要＿＿＿＿，不可懈怠。","歷史的教訓告訴我們，國家在繁榮時期更應該＿＿＿＿，鞏固國防。","存緊急預備金就是一種＿＿＿＿的理財觀念。","人生難免有起伏，我們在順境時要懂得＿＿＿＿，才能應付突如其來的變化。"]},
+            { idiom: "義正辭嚴", meaning: "理由正當，措詞嚴厲。", lesson: "L11", sentences: ["他提出的不合理要求，你大可＿＿＿＿的拒絕。","面對不實的指控，他＿＿＿＿地為自己辯護，贏得了大家的信任。","法官＿＿＿＿地宣判了罪犯的刑期，彰顯了司法正義。","校長＿＿＿＿地告誡學生，絕對不可參與任何違法活動。","這篇社論＿＿＿＿地批評了官商勾結的黑暗面，引起廣大迴響。"]},
+            { idiom: "妄自菲薄", meaning: "隨意看輕自己，不知自重。", lesson: "L11", sentences: ["在這世界上，每個人都有優點，不宜＿＿＿＿。","就算這次考不好，也不應該＿＿＿＿，只要找出原因下次就能進步。","天生我材必有用，千萬不要因為一時的挫折就＿＿＿＿。","老師經常鼓勵缺乏自信的同學，要相信自己，不要＿＿＿＿。","如果連你自己都＿＿＿＿，那要怎麼說服別人相信你的能力呢？"]},
+            { idiom: "扶老攜幼", meaning: "扶著老人，牽著小孩。指男女老幼全體出動的情況。", lesson: "L12", sentences: ["每到陽明山花季，總有大批遊客＿＿＿＿，上山賞花。","元宵節當晚，鎮上的居民＿＿＿＿，熱鬧地在大街上提燈籠。","聽說有免費的戶外電影放映，村民們便＿＿＿＿地前往廣場占位子。","廟會的踩街活動吸引了無數鄉親＿＿＿＿，前來共襄盛舉。","一聽到地震警報，住戶們立刻＿＿＿＿，迅速疏散到空曠處避難。"]},
+            { idiom: "任勞任怨", meaning: "形容人做事熱心負責，不辭勞苦，不怕嫌怨。", lesson: "L12", sentences: ["里長一直以來都＿＿＿＿的為大家服務，贏得里民對他的尊重。","母親為了撫養我們長大，大半輩子都在工廠裡＿＿＿＿地工作。","他對公司交辦的任務總是＿＿＿＿，從不抱怨加班辛苦。","清潔隊員每天＿＿＿＿地打掃街道，給了我們一個乾淨的環境。","這種吃力不討好的工作，只有像他這樣＿＿＿＿的人才肯接下。"]},
+            { idiom: "任重道遠", meaning: "負擔繁重，路途遙遠。比喻長期肩負重大的任務。", lesson: "L12", sentences: ["這是一件＿＿＿＿的工作，希望大家都能堅持到最後。","推動環保教育是一項＿＿＿＿的使命，需要我們長期持續努力。","肩負著振興傳統藝術的責任，他深知自己＿＿＿＿。","改革教育體制＿＿＿＿，並非一朝一夕就能看到成果。","總統在就職演說中表示，未來的施政將＿＿＿＿，必定全力以赴。"]},
+            { idiom: "當務之急", meaning: "當前最急迫要做的事。", lesson: "L12", sentences: ["為了能在比賽中衛冕成功，＿＿＿＿是加強選手信心。","颱風過後，重建災區的基礎設施成了政府的＿＿＿＿。","公司正面臨嚴重的資金缺口，尋找新的投資人是目前的＿＿＿＿。","考期逼近，放下手機專心溫習功課，才是你的＿＿＿＿。","面對日益嚴重的全球暖化，減少碳排放已經成為全人類的＿＿＿＿。"]},
+            { idiom: "不同凡響", meaning: "原指不平凡的音樂。後用來比喻特出、不平凡的人或事物。", lesson: "L12", sentences: ["這首曲子的優美和弦，襯托出他們＿＿＿＿的完美和聲。","這位年輕畫家的作品風格獨特，果然＿＿＿＿，一展出就受到矚目。","這道結合了中西風味的創意料理，吃起來口感層次豐富，真的是＿＿＿＿。","她一開口唱歌，那清亮高亢的嗓音立刻讓人感覺＿＿＿＿。","這部科幻小說的世界觀設定得非常宏大且＿＿＿＿，讀起來十分過癮。"]}
+        ];
+
+        window.idiomData = JSON.parse(localStorage.getItem('idiom_data_v12')) || [...defaultIdioms];
+        window.mistakesList = JSON.parse(localStorage.getItem('idiom_mistakes_v12')) || [];
+        
+        window.currentQuestionPool = [...window.idiomData]; 
+        window.availableSentencesMap = {}; 
+        window.currentTrainingRange = 'all'; 
+
+        /* ================= 幻獸與巨獸圖鑑 (內嵌外部圖片) ================= */
+        const PET_DEX = {
+            1: { 
+                stageNames: ["小火蜥", "烈焰龍族", "恆星爆炎龍"],
+                images: [
+                    "https://i.postimg.cc/dDH16LBN/13-xiao-huo-xi.png",
+                    "https://i.postimg.cc/kDXGWxQr/14-lie-yan-long-zu.png",
+                    "https://i.postimg.cc/23c6GVGC/15-heng-xing-bao-yan-long.png"
+                ],
+                color: "text-red-400", skillName: "精準火力", skillDesc: "減少隕石戰的干擾選項。",
+                pvpSkillName: "烈焰焦黑",
+                pvpSkillDesc: "[Lv.10] 5連擊: 燒黑對手 1 個選項(3秒)\n[Lv.20] 3連擊: 燒黑對手 2 個選項"
+            },
+            2: { 
+                stageNames: ["電氣幼狼", "迅雷狼族", "脈衝星雷狼"],
+                images: [
+                    "https://i.postimg.cc/qgbRwzwM/16-dian-qi-you-lang.png",
+                    "https://i.postimg.cc/cKB1nH6Z/17-xun-lei-lang-zu.png",
+                    "https://i.postimg.cc/bDYyHh2f/18-mai-chong-xing-lei-lang.png"
+                ],
+                color: "text-yellow-400", skillName: "時空力場", skillDesc: "延長所有模式的思考/掉落時間。",
+                pvpSkillName: "雷電防禦",
+                pvpSkillDesc: "[Lv.10] 被推退幅度減少 15%\n[Lv.20] 減免 30% + 對手答錯時閃屏"
+            },
+            3: { 
+                stageNames: ["齒輪小龜", "大地機甲", "泰坦行星堡壘"],
+                images: [
+                    "https://i.postimg.cc/phVWYHnH/19-chi-lun-xiao-gui.png",
+                    "https://i.postimg.cc/jwqxQbJj/20-da-de-ji-jia.png",
+                    "https://i.postimg.cc/GTHbVxKr/21-tai-tan-xing-xing-bao-lei.png"
+                ],
+                color: "text-emerald-400", skillName: "資源探測", skillDesc: "過關掉落資源增加 20%。",
+                pvpSkillName: "大地護盾",
+                pvpSkillDesc: "[Lv.10] 擋1次干擾 (答對5題重生)\n[Lv.20] 上限2次 (答對3題重生) + 破盾震動"
+            },
+            4: { 
+                stageNames: ["急凍水母", "冰霜精靈", "絕對零度使"],
+                images: [
+                    "https://i.postimg.cc/py6W83Vr/22-ji-dong-shui-mu.png",
+                    "https://i.postimg.cc/QHKXqSVK/23-bing-shuang-jing-ling.png",
+                    "https://i.postimg.cc/pp52Bkyr/24-jue-dui-ling-du-shi.png"
+                ],
+                color: "text-blue-300", skillName: "絕對零度", skillDesc: "答錯時 30% 機率不扣血且不斷 Combo。",
+                pvpSkillName: "絕對冰結",
+                pvpSkillDesc: "[Lv.10] 4連擊: 凍結對手畫面 1.5秒\n[Lv.20] 3連擊: 凍結對手 2秒"
+            },
+            5: { 
+                stageNames: ["星塵幼鷹", "疾風羽族", "太陽風暴鷲"],
+                images: [
+                    "https://i.postimg.cc/18xy76q3/25-xing-chen-you-ying.png",
+                    "https://i.postimg.cc/9RNhdqhT/26-ji-feng-yu-zu.png",
+                    "https://i.postimg.cc/bDFhx2hk/27-tai-yang-feng-bao-jiu.png"
+                ],
+                color: "text-teal-300", skillName: "洞察之風", skillDesc: "戰鬥中可主動發動1次，刪除2個錯誤選項。",
+                pvpSkillName: "疾風洗牌",
+                pvpSkillDesc: "[Lv.10] 4連擊: 對手選項瞬間大風吹\n[Lv.20] 2連擊: 選項瞬間大風吹"
+            },
+            6: { 
+                stageNames: ["暗物質史萊姆", "虛空魔靈", "黑洞吞噬者"],
+                images: [
+                    "https://i.postimg.cc/qh7r6x9Q/28-an-wu-zhi-shi-lai-mu.png",
+                    "https://i.postimg.cc/xJF2vb2G/29-xu-kong-mo-ling.png",
+                    "https://i.postimg.cc/tnZH2CR1/30-hei-dong-tun-shi-zhe.png"
+                ],
+                color: "text-purple-500", skillName: "暴擊吞噬", skillDesc: "快答暴擊傷害變為 2.5 倍，但裝甲只有 1 格。",
+                pvpSkillName: "虛空吞噬",
+                pvpSkillDesc: "[Lv.10] 推力與受擊皆變為 1.5倍\n[Lv.20] 推力 2倍 + 5連擊吸走對手分數"
+            }
+        };
+
+        const BOSS_DATA = [
+            { id: 1, name: "狂武星骸・白羊", image: "https://i.postimg.cc/V5DSh7fY/01-kuang-wu-xing-hai-bai-yang.png", type: "極速型", hpMultiplier: 0.6, timeLimit: 10 },
+            { id: 2, name: "重力星骸・金牛", image: "https://i.postimg.cc/8stFYypg/02-zhong-li-xing-hai-jin-niu.png", type: "血牛型", hpMultiplier: 2.5, timeLimit: 15 },
+            { id: 3, name: "幻影星骸・雙子", image: "https://i.postimg.cc/mh8cndLx/03-huan-ying-xing-hai-shuang-zi.png", type: "干擾型", hpMultiplier: 1.0, timeLimit: 15 },
+            { id: 4, name: "深淵星骸・巨蟹", image: "https://i.postimg.cc/F1Df6Prh/04-shen-yuan-xing-hai-ju-xie.png", type: "裝甲型", hpMultiplier: 1.2, timeLimit: 15 },
+            { id: 5, name: "烈陽星骸・獅子", image: "https://i.postimg.cc/G4sHHdkm/05-lie-yang-xing-hai-shi-zi.png", type: "霸王型", hpMultiplier: 1.5, timeLimit: 12 },
+            { id: 6, name: "秩序星骸・處女", image: "https://i.postimg.cc/mzTDX9Jv/06-zhi-xu-xing-hai-chu-nu.png", type: "精準型", hpMultiplier: 1.0, timeLimit: 15 },
+            { id: 7, name: "審判星骸・天秤", image: "https://i.postimg.cc/WDGzw8Ww/07-shen-pan-xing-hai-tian-cheng.png", type: "平衡型", hpMultiplier: 1.0, timeLimit: 15 },
+            { id: 8, name: "猛毒星骸・天蠍", image: "https://i.postimg.cc/sQ3X6WbC/08-meng-du-xing-hai-tian-xie.png", type: "劇毒型", hpMultiplier: 1.1, timeLimit: 12 },
+            { id: 9, name: "追擊星骸・射手", image: "https://i.postimg.cc/S2VKwspM/09-zhui-ji-xing-hai-she-shou.png", type: "連擊型", hpMultiplier: 1.8, timeLimit: 15 },
+            { id: 10, name: "冰晶星骸・摩羯", image: "https://i.postimg.cc/R6G0jFzT/10-bing-jing-xing-hai-mo-jie.png", type: "凍結型", hpMultiplier: 1.0, timeLimit: 15 },
+            { id: 11, name: "混沌星骸・水瓶", image: "https://i.postimg.cc/N9b0WMwN/11-hun-dun-xing-hai-shui-ping.png", type: "無序型", hpMultiplier: 0.8, timeLimit: 18 },
+            { id: 12, name: "魅惑星骸・雙魚", image: "https://i.postimg.cc/bDLvKJjC/12-mei-huo-xing-hai-shuang-yu.png", type: "幻術型", hpMultiplier: 0.9, timeLimit: 15 }
+        ];
+
         /* ================= 雲端同步與認證 ================= */
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -643,17 +880,10 @@
             
             let needsSave = false;
             if (docSnap.exists()) {
-                let data = docSnap.data();
-                inventory = { ...inventory, ...data };
-                
-                // 強制檢查與補齊 PvP 與 AI 紀錄缺漏的欄位
+                inventory = { ...inventory, ...docSnap.data() };
                 if(inventory.pkWins === undefined) inventory.pkWins = 0;
                 if(inventory.pkTotal === undefined) inventory.pkTotal = 0;
-                
-                if(!inventory.aiRecords) inventory.aiRecords = {};
-                ['normal', 'hard', 'hell', 'abyss'].forEach(k => {
-                    if (inventory.aiRecords[k] === undefined) inventory.aiRecords[k] = 999;
-                });
+                if(inventory.aiRecords === undefined) inventory.aiRecords = { normal: 999, hard: 999, hell: 999, abyss: 999 };
             } else {
                 inventory.displayName = currentUser.displayName;
                 needsSave = true;
@@ -723,15 +953,6 @@
         async function saveInventory() {
             if (!currentUser) return;
             updateHUD();
-
-            // 強制將目前成績直接覆寫到本機的排行榜陣列，確保無延遲！
-            let myIdx = allUsersData.findIndex(u => u.id === currentUser.uid);
-            if (myIdx > -1) {
-                allUsersData[myIdx] = { ...allUsersData[myIdx], ...inventory };
-            } else {
-                allUsersData.push({ id: currentUser.uid, ...inventory });
-            }
-
             const userRef = doc(db, 'users', currentUser.uid);
             updateDoc(userRef, inventory).catch(e => {
                 setDoc(userRef, inventory).catch(err => console.error("同步失敗", err));
@@ -1604,14 +1825,16 @@
                 pvpPlayerCombo++; 
                 
                 let pStage = getPetStage(inventory.petsData[activePetId].level);
-                let pushAmt = 8; // 基礎推力 8%
+                let pushAmt = 8; // 基礎推力提升至 8%
                 
+                // 連擊額外推力加成
                 if (pvpPlayerCombo >= 5) {
                     pushAmt *= 1.5;
                 } else if (pvpPlayerCombo >= 3) {
                     pushAmt *= 1.2;
                 }
                 
+                // 虛空系被動
                 if (activePetId === 6) {
                     if (pStage === 1) pushAmt *= 1.5;
                     else if (pStage === 2) pushAmt *= 2.0;
@@ -1734,7 +1957,7 @@
                     let isCorrect = Math.random() < accRate;
                     if (isCorrect) {
                         pvpAiCombo++;
-                        let pushAmt = 3; // AI 反推力 3%
+                        let pushAmt = 3; // AI 反推力下調至 3%
                         if (pvpAiBlackhole) { pushAmt = 0; pvpAiBlackhole = false; showSkillEffect("p2", "分數被吸走!"); }
                         
                         let pStage = getPetStage(inventory.petsData[activePetId].level);
@@ -1802,6 +2025,7 @@
             let msg = isWin ? "競技勝利！" : "不幸戰敗！";
             let color = isWin ? "text-yellow-400" : "text-rose-400";
             
+            // 只有非 AI 的真實玩家對戰，才計入 PK 勝率榜
             if (pvpOpponentType !== 'ai') {
                 inventory.pkTotal++;
                 if (isWin) inventory.pkWins++;
@@ -1809,7 +2033,7 @@
             
             let timeUsed = 60 - pvpTimeLeft;
             if (isWin && pvpOpponentType === 'ai') {
-                if (inventory.aiRecords[pvpAiDifficulty] === undefined || timeUsed < inventory.aiRecords[pvpAiDifficulty]) {
+                if (timeUsed < inventory.aiRecords[pvpAiDifficulty]) {
                     inventory.aiRecords[pvpAiDifficulty] = timeUsed;
                 }
             }
